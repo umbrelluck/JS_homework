@@ -14,7 +14,7 @@ function renderPlayground() {
 }
 
 // Creates <div class="row" id="row-9">
-function createRow(rowIndex,) {
+function createRow(rowIndex) {
   let rowNode = document.createElement('div');
   rowNode.setAttribute('id', `row-${rowIndex}`);
   rowNode.setAttribute('class', 'row');

@@ -17,8 +17,10 @@ function moveDown(obj) {
   let currentObject = getCurrentObject();
 
   // 2. re-define objects - done
+  setMovement(currentObject, playground);
   console.log(objects)
-  currentObject.position.forEach(position => (position[0] > 0 && (position[0] -= 1)))
+  if (checkDown(currentObject, playground))
+    currentObject.position.forEach(position => (position[0] > 0 && (position[0] -= 1)));
   console.log(objects)
 
   // 3. re-define clear playground
@@ -33,8 +35,11 @@ function moveRight(obj) {
   console.log('moving right')
   let currentObject = getCurrentObject();
   console.log(currentObject);
-
-  currentObject.position.forEach(position => (position[1] < 4 && (position[1] += 1)))
+  setMovement(currentObject, playground);
+  if (checkRight(currentObject, playground)) {
+    console.log('moving right')
+    currentObject.position.forEach(position => (position[1] < 4 && (position[1] += 1)));
+  }
   playground = createPlayground();
   renderPlayground();
 }
@@ -44,7 +49,9 @@ function moveLeft(obj) {
   let currentObject = getCurrentObject();
   console.log(currentObject);
 
-  currentObject.position.forEach(position => (position[1] > 0 && (position[1] -= 1)))
+  setMovement(currentObject, playground);
+  if (checkLeft(currentObject, playground))
+    currentObject.position.forEach(position => (position[1] > 0 && (position[1] -= 1)));
   playground = createPlayground();
   renderPlayground();
 }
@@ -71,9 +78,7 @@ function pauseGame() {
 // 5. game over
 // 6. (re)render playground
 
-renderPlayground()
-
-var paused = false;
+renderPlayground();
 
 // interval 2 seconds
 var gameInterval = setInterval(() => {

@@ -4,8 +4,8 @@ console.log(playground);
 
 // will add object positions to the emply playground array
 function renderPositions() {
-  objects.forEach( object => {
-    object.position.forEach( ([rowIndex, cellIndex]) => {
+  objects.forEach(object => {
+    object.position.forEach(([rowIndex, cellIndex]) => {
       playground[rowIndex][cellIndex] = TYPE_COLORS[object.type]
     })
   });
@@ -20,7 +20,7 @@ function moveDown(obj) {
   console.log(objects)
   currentObject.position.forEach(position => (position[0] > 0 && (position[0] -= 1)))
   console.log(objects)
-  
+
   // 3. re-define clear playground
   playground = createPlayground();
 
@@ -33,17 +33,32 @@ function moveRight(obj) {
   console.log('moving right')
   let currentObject = getCurrentObject();
   console.log(currentObject);
+
+  currentObject.position.forEach(position => (position[1] < 4 && (position[1] += 1)))
+  playground = createPlayground();
+  renderPlayground();
 }
 
 function moveLeft(obj) {
   console.log('moving left')
   let currentObject = getCurrentObject();
   console.log(currentObject);
+
+  currentObject.position.forEach(position => (position[1] > 0 && (position[1] -= 1)))
+  playground = createPlayground();
+  renderPlayground();
 }
 
 function pauseGame() {
-  console.log('pausing the game')
-  clearInterval(gameInterval);
+  if (!paused) {
+    console.log('pausing the game');
+    clearInterval(gameInterval);
+  }
+  else {
+    console.log("resuming the game");
+    gameInterval = setInterval(() => { moveDown(); }, 2000);
+  }
+  paused = !paused;
 }
 
 // function createObj() {}
@@ -58,7 +73,9 @@ function pauseGame() {
 
 renderPlayground()
 
-// interval 1 second
+var paused = false;
+
+// interval 2 seconds
 var gameInterval = setInterval(() => {
   moveDown();
-}, 4000);
+}, 2000);

@@ -1,13 +1,16 @@
 document.addEventListener("keydown", event => {
   switch (event.keyCode) {
     case DOWN:
-      moveDown();
+      if (!paused)
+        moveDown();
       break;
     case LEFT:
-      moveRight();
+      if (!paused)
+        moveRight();
       break;
     case RIGHT:
-      moveLeft();
+      if (!paused)
+        moveLeft();
       break;
     case PAUSE:
       pauseGame();

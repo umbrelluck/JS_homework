@@ -12,6 +12,6 @@ const INITIAL_POSITIONS = {
 
 // Event keys
 const DOWN  = 40;
-const LEFT  = 37;
-const RIGHT = 39;
+const LEFT  = 39;
+const RIGHT = 37;
 const PAUSE = 32;

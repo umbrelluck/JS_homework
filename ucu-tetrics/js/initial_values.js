@@ -17,3 +17,4 @@ var objects = [{
   }
 ]
 var paused = false;
+var gameEnd = false;

@@ -29,8 +29,6 @@ function checkDown(object, playgr) {
         found = object.position.some(elem => elem.includes(pos[0] - 1) && elem.includes(pos[1]))
         if (!found && playgr[pos[0] - 1][pos[1]] != undefined || pos[0] < 1)
             return false;
-        // if (mini > pos[0])
-        //     mini = pos[0];
     }
     return true;
 }
@@ -38,7 +36,7 @@ function checkDown(object, playgr) {
 var createPlayground = () => (new Array(10).fill().map(el => (new Array(5).fill())));
 
 function setMovement(object, playgr) {
-    if (!checkDown(object, playgr)) {
+    if (object.state === "falling" && !checkDown(object, playgr)) {
         object.state = "static";
         console.log("Element stopped");
     }

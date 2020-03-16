@@ -15,6 +15,10 @@ function moveDown(obj) {
   console.log('moving down')
   // 1. get current object - done
   let currentObject = getCurrentObject();
+  if (currentObject == undefined) {
+    gameOver();
+    return;
+  }
 
   // 2. re-define objects - done
   setMovement(currentObject, playground);
@@ -66,6 +70,12 @@ function pauseGame() {
     gameInterval = setInterval(() => { moveDown(); }, 2000);
   }
   paused = !paused;
+}
+
+function gameOver() {
+  console.log("Game over");
+  clearInterval(gameInterval);
+  gameEnd=true;
 }
 
 // function createObj() {}

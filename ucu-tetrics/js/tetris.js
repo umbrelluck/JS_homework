@@ -35,11 +35,11 @@ function moveRight(obj) {
   console.log('moving right')
   let currentObject = getCurrentObject();
   console.log(currentObject);
-  setMovement(currentObject, playground);
   if (checkRight(currentObject, playground)) {
     console.log('moving right')
     currentObject.position.forEach(position => (position[1] < 4 && (position[1] += 1)));
   }
+  setMovement(currentObject, playground);
   playground = createPlayground();
   renderPlayground();
 }
@@ -49,9 +49,9 @@ function moveLeft(obj) {
   let currentObject = getCurrentObject();
   console.log(currentObject);
 
-  setMovement(currentObject, playground);
   if (checkLeft(currentObject, playground))
     currentObject.position.forEach(position => (position[1] > 0 && (position[1] -= 1)));
+  setMovement(currentObject, playground);
   playground = createPlayground();
   renderPlayground();
 }

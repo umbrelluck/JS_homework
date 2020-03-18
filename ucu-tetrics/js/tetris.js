@@ -13,51 +13,54 @@ function renderPositions() {
 
 function moveDown(obj) {
   console.log('moving down')
-  // 1. get current object - done
   let currentObject = getCurrentObject();
+  console.log(`Here is my falling Object ${currentObject}`);
   if (currentObject == undefined) {
-    gameOver();
+    createObj();
     return;
   }
-
-  // 2. re-define objects - done
-  setMovement(currentObject, playground);
   console.log(objects)
-  if (checkDown(currentObject, playground))
+  if (checkDown(currentObject)) {
     currentObject.position.forEach(position => (position[0] > 0 && (position[0] -= 1)));
-  console.log(objects)
-
-  // 3. re-define clear playground
-  playground = createPlayground();
-
-  // 4. re-renderPositions
-  // 5. re-renderPlayground
-  renderPlayground()
+    console.log(objects)
+    playground = createPlayground();
+    renderPlayground()
+  }
+  setMovement(currentObject, playground);
 }
 
 function moveRight(obj) {
   console.log('moving right')
   let currentObject = getCurrentObject();
   console.log(currentObject);
-  if (checkRight(currentObject, playground)) {
-    console.log('moving right')
+  if (currentObject == undefined) {
+    createObj();
+    return;
+  }
+  if (checkRight(currentObject)) {
+    console.log('moving right IN IF')
     currentObject.position.forEach(position => (position[1] < 4 && (position[1] += 1)));
+    playground = createPlayground();
+    renderPlayground();
   }
   setMovement(currentObject, playground);
-  playground = createPlayground();
-  renderPlayground();
 }
 
 function moveLeft(obj) {
   console.log('moving left')
   let currentObject = getCurrentObject();
-  console.log(currentObject);
+  console.log(`${currentObject.position}`);
+  if (currentObject == undefined) {
+    createObj();
+    return;
+  }
 
-  if (checkLeft(currentObject, playground))
+  if (checkLeft(currentObject)) {
     currentObject.position.forEach(position => (position[1] > 0 && (position[1] -= 1)));
+    playground = createPlayground();
+    renderPlayground();
+  }
   setMovement(currentObject, playground);
-  playground = createPlayground();
-  renderPlayground();
 }
 
 function pauseGame() {
@@ -75,18 +78,51 @@ function pauseGame() {
 function gameOver() {
   console.log("Game over");
   clearInterval(gameInterval);
-  gameEnd=true;
+  gameEnd = true;
 }
 
-// function createObj() {}
+function createObj() {
+  console.log("creating...");
+  var objType = randomObjType();
+  var posit = []
+  switch (objType) {
+    case "L":
+      posit = JSON.parse(JSON.stringify(lPosition));
+      break;
+    // case "J":
+    //   posit = JSON.parse(JSON.stringify(jPosition));;
+    //   break;
+    case "T":
+      posit = JSON.parse(JSON.stringify(tPosition));
+      break;
+    // case "I":
+    //   posit = JSON.parse(JSON.stringify(iPosition));
+    //   break;
+    // case "Z":
+    //   posit = JSON.parse(JSON.stringify(zPosition));
+    //   break;
+    // case "S":
+    //   JSON.parse(JSON.stringify(sPosition));
+    //   break;
+    // case "R":
+    //   posit = JSON.parse(JSON.stringify(rPosition));
+    //   break;
+    default:
+      break;
+  }
 
-// Events
-// 1. move to bottom
-// 2. move right
-// 3. move left
-// 4. pause
-// 5. game over
-// 6. (re)render playground
+  if (!checkFreeSpace(posit, playground)) {
+    gameOver();
+    console.log(playground);
+    return;
+  }
+  objects.push({ type: objType, state: 'falling', position: posit });
+  // console.log(`Objects ${objects}`);
+  console.log(`Adding ${objType}`);
+  playground=createPlayground();
+  renderPlayground();
+}
+
 
 renderPlayground();
 

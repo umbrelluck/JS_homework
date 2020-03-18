@@ -27,3 +27,18 @@ function createCell(cellIndex, color) {
   cellNode.setAttribute('class', `cell cell-${cellIndex} ${color}`);
   return cellNode;
 }
+
+function deleteLines(){
+  console.log("In delete");
+  i=0; imax=10;
+  // nLines=0
+  while (i<imax)
+    if(checkLine(i)){
+      console.log("So....");
+      console.log(JSON.parse(JSON.stringify(playground)));
+      moveAllObjects(i)
+      imax-=1;
+    }
+    else
+      i++; 
+}

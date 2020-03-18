@@ -4,7 +4,7 @@ function renderPlayground() {
   let playgroundNode = document.getElementById('playground')
   playgroundNode.innerHTML = '';
 
-  for (let rowIndex = playground.length - 1; rowIndex >= 0; rowIndex-- ) {
+  for (let rowIndex = playground.length - 1; rowIndex >= 0; rowIndex--) {
     let rowNode = createRow(rowIndex)
     for (let cellIndex = 0; cellIndex < playground[rowIndex].length; cellIndex++) {
       rowNode.appendChild(createCell(cellIndex, playground[rowIndex][cellIndex]))
@@ -28,17 +28,21 @@ function createCell(cellIndex, color) {
   return cellNode;
 }
 
-function deleteLines(){
+function deleteLines() {
   console.log("In delete");
-  i=0; imax=10;
-  // nLines=0
-  while (i<imax)
-    if(checkLine(i)){
+  toDelete = [];
+  flag = true;
+  i = 0; imax = 10;
+  nLines = 0
+  while (i < imax) {
+    flag = checkLine(i);
+    if (flag) {
+      nLines ++;
       console.log("So....");
       console.log(JSON.parse(JSON.stringify(playground)));
-      moveAllObjects(i)
-      imax-=1;
     }
-    else
-      i++; 
+    toDelete.push(flag ? -1 : nLines);
+    i++;
+  }
+  moveAllObjects(toDelete)
 }

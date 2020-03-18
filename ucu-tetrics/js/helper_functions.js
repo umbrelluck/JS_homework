@@ -89,9 +89,20 @@ function checkLine(line) {
     return (count == N) ? true : false;
 }
 
-function moveAllObjects(line) {
+function moveAllObjects(toDelete) {
+    console.log(toDelete);
+    for (object of objects) {
+        for (i = 0; i < object.position.length; i++) {
+            console.log(`${object.position[i][0]} - ${toDelete[object.position[i][0]]}`);
+            if (toDelete[object.position[i][0]] == -1) {
+                object.position.splice(i, 1);
+                i--;
+            }
+            else
+                object.position[i][0] -= toDelete[object.position[i][0]];
+        }
+    }
 
-    
     // for (object of objects) {
     //     let coor = [];
     //     for (i = 0; i < object.position.length; i++) {

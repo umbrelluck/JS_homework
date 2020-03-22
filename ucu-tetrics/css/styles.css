@@ -2,13 +2,16 @@ body {
   background: #f0f4f7;
 }
 
-#playground, #playground2 {
+#playground{
   margin: 20px 200px;
 }
+/* #nextPiece{
+  margin: 20px 500px;
+} */
 
 .row {
   display: grid;
-  grid-template-columns: 40px 40px 40px 40px 40px;
+  grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
   grid-gap: 8px;
   margin-bottom: 4px;
 }
@@ -46,9 +49,9 @@ body {
   border-color: #a4ae1a;
 }
 
-cell.blue {
+.cell.blue {
   background:#8db6d7;
-  border-color: #1a6bae;
+  border-color: #206ead;
 }
 .cell.magenta {
   background:#d58dd7;

@@ -18,7 +18,7 @@ function checkRight(object) {
     if (object.state === "static")
         return false;
     for (pos of object.position) {
-        if (pos[1] < 4) {
+        if (pos[1] < N - 1) {
             found = object.position.some(elem => elem[1] == pos[1] + 1 && elem[0] == pos[0]);
             if (!found && playground[pos[0]][pos[1] + 1] != undefined)
                 return false;
@@ -57,7 +57,7 @@ function checkDown(object) {
     return true;
 }
 
-var createPlayground = () => (new Array(10).fill().map(el => (new Array(5).fill())));
+var createPlayground = () => (new Array(M).fill().map(el => (new Array(N).fill())));
 
 function randomObjType() {
     var keys = Object.keys(TYPE_COLORS);
@@ -80,7 +80,6 @@ function setMovement(object, playgr) {
 }
 
 function checkLine(line) {
-    let N = 5
     count = 0
     for (cell = 0; cell < N; cell++)
         if (playground[line][cell] != undefined)
@@ -90,16 +89,25 @@ function checkLine(line) {
 }
 
 function moveAllObjects(toDelete) {
+    fl = toDelete.includes(-1);
     console.log(toDelete);
     for (object of objects) {
+        object.position.sort();
         for (i = 0; i < object.position.length; i++) {
             console.log(`${object.position[i][0]} - ${toDelete[object.position[i][0]]}`);
             if (toDelete[object.position[i][0]] == -1) {
                 object.position.splice(i, 1);
                 i--;
             }
-            else
+            else {
                 object.position[i][0] -= toDelete[object.position[i][0]];
+                if (fl)
+                    while (object.position[i][0] > 0 && playground[object.position[i][0] - 1][object.position[i][1]] == undefined) {
+                        playground[object.position[i][0]][object.position[i][1]] = undefined;
+                        object.position[i][0] -= 1;
+                        playground[object.position[i][0]][object.position[i][1]] = TYPE_COLORS[object.type];
+                    }
+            }
         }
     }
 
@@ -127,5 +135,6 @@ function moveAllObjects(toDelete) {
     //     }
     // }
     console.log(objects);
+    playground = createPlayground();
     renderPlayground();
 }

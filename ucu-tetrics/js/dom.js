@@ -32,7 +32,7 @@ function deleteLines() {
   console.log("In delete");
   toDelete = [];
   flag = true;
-  i = 0; imax = 10;
+  i = 0; imax = M;
   nLines = 0
   while (i < imax) {
     flag = checkLine(i);
@@ -44,5 +44,5 @@ function deleteLines() {
     toDelete.push(flag ? -1 : nLines);
     i++;
   }
-  moveAllObjects(toDelete)
+  moveAllObjects(toDelete);
 }
